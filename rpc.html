@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<head>
+    
+</head>
+<body>
+    <script>
+
+let playerScore = 0
+let computerScore = 0
+let winner
+let resultMsg
+let roundCount = 0
+
+    function computerPlay()
+{
+let randNum = Math.round(Math.random()*2)
+switch (randNum) {
+  case 0:
+    return 'rock';
+    break;
+    case 1:
+        return 'paper';
+        break;
+            case 2:
+            return 'scissor';}
+}
+
+function playRpc() {
+    computerPlay();
+    let computerSel = computerPlay()
+    let playerInp = prompt('Choose your hand figure.')
+    let playerSel = playerInp.toLowerCase()
+    console.log('Player\'s hand: ' + playerSel)
+    console.log('Computer\'s hand: ' + computerSel)
+    
+    if (computerSel === 'rock' && playerSel === 'scissor')
+    {   winner = 'computer';
+        resultMsg = 'You lose, rock beats scissor haha!';}
+    else if(computerSel === 'rock' && playerSel === 'paper')
+    {   winner = 'player';
+        resultMsg = 'Nice pick, paper beats rock!';}
+    else if (computerSel === 'paper' && playerSel === 'rock')
+    {   winner = 'computer';
+        resultMsg = 'You lose, paper beats rock haha!';}
+    else if (computerSel === 'paper' && playerSel === 'scissor')
+    {   winner = 'player';
+        resultMsg = 'Nice pick, scissor beats paper!';}
+    else if (computerSel === 'scissor' && playerSel === 'rock')
+    {   winner = 'player';
+        resultMsg = 'Nice pick, rock beats scissor!';}
+    else if (computerSel === 'scissor' && playerSel === 'paper')
+    {   winner = 'computer';
+        resultMsg = 'You lose, scissor beats paper haha!';}
+    else {
+        winner = 'draw';
+        resultMsg = 'Draw game, play again.'}
+        //console.log(winner)
+        console.log(resultMsg)
+        }
+
+function scoreCalc() {
+roundCount = roundCount + 1;
+switch(winner) {
+    case 'player':
+    playerScore = playerScore + 1;
+    break;
+    case 'computer':
+    computerScore = computerScore + 1;
+    break;
+    }
+}
+
+
+function game() {
+
+playRpc();
+scoreCalc();    
+console.log('Result after turn ' + roundCount + ': \n Computer: ' + computerScore + '\n Player: ' + playerScore )
+
+playRpc();
+scoreCalc();    
+console.log('Result after turn ' + roundCount + ': \n Computer: ' + computerScore + '\n Player: ' + playerScore )
+
+playRpc();
+scoreCalc();    
+console.log('Result after turn ' + roundCount + ': \n Computer: ' + computerScore + '\n Player: ' + playerScore )
+
+playRpc();
+scoreCalc();    
+console.log('Result after turn ' + roundCount + ': \n Computer: ' + computerScore + '\n Player: ' + playerScore )
+
+playRpc();
+scoreCalc();    
+console.log('Result after turn ' + roundCount + ': \n Computer: ' + computerScore + '\n Player: ' + playerScore )
+
+if(playerScore > computerScore) {
+    console.log('Congrats, you are the winner!');}
+    else if (playerScore < computerScore) {
+        console.log('You lose. It\'s hard to beat such a fantastic AI, huh?!')}
+        else console.log('Draw game.')
+        
+}
+
+
+    </script>
+</body>
