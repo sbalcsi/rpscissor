@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<head>
+<title>RPCgame</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="main-container">
+    <h1>Rock? Paper? Scissor?</h1>
+
+    <h2>Choose your hand!</h1>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissor">Scissor</button>
+    <p id="displayMsg"></p>
+</div>
+
+    <script>
+
+//calculates computer's hand
+    function computerPlay()
+{
+let randNum = Math.round(Math.random()*2)
+switch (randNum) {
+  case 0:
+    return 'rock';
+    break;
+    case 1:
+        return 'paper';
+        break;
+            case 2:
+            return 'scissor';}
+}
+
+//gives a value to each outcome
+function playRpc(computerSel,playerSel) {
+    
+    if (computerSel === 'rock' && playerSel === 'scissor')
+    {   return 1;
+    }  
+    else if(computerSel === 'rock' && playerSel === 'paper')
+    {  return 2;
+        }
+    else if (computerSel === 'paper' && playerSel === 'rock')
+    {   return 3;
+        }
+    else if (computerSel === 'paper' && playerSel === 'scissor')
+    {  return  4;
+        }
+    else if (computerSel === 'scissor' && playerSel === 'rock')
+    {   return 5;
+        }
+    else if (computerSel === 'scissor' && playerSel === 'paper')
+    {   return  6;
+        }
+    else {
+        return  7;
+        }
+       
+        }
+
+//translates the outcome into a message
+function resultMessage(result) {
+switch (result) {
+    case 1:
+    return 'You lose, rock beats scissor haha!';
+    break;
+    case 2:
+    return 'Nice pick, paper beats rock!';
+    break;
+    case 3:
+    return 'You lose, paper beats rock haha!';
+    break;
+    case 4:
+    return 'Nice pick, scissor beats paper!';
+    break;
+    case 5:
+    return 'Nice pick, rock beats scissor!';
+    break;
+    case 6:
+    return 'You lose, scissor beats paper haha!';
+    break;
+    case 7:
+    return 'Draw game, play again.';
+}
+}
+
+//calculates player score for turn
+function playerCalc(result) {
+
+if (result === 2 || result === 4 || result === 5) {
+    return 1;}
+    else {return 0; }
+    }
+//calculates computer score for turn    
+function compCalc(result) {
+
+if (result === 1 || result === 3 || result === 6) {
+    return 1;}
+    else {return 0; }
+    }
+
+let playerSel
+
+const rock = document.querySelector('#rock')
+rock.addEventListener('click', ()=> {
+    playerSel = 'rock';
+    game();
+})
+
+const paper = document.querySelector('#paper')
+paper.addEventListener('click', ()=> {
+    playerSel = 'paper';
+    game();
+})
+
+const scissor = document.querySelector('#scissor')
+scissor.addEventListener('click', ()=> {
+    playerSel = 'scissor';
+    game();
+})
+
+//main program
+
+
+//round1
+let roundCount = 0
+let playerScore = 0
+let computerScore = 0
+
+//let playerInput
+//let playerSel
+//let i
+
+/*for (i=1;i<=5;i++) {
+//handling inappropriate input
+while (true) {
+    playerInput = prompt('Choose your hand figure.')
+    if (!playerInput) {continue};
+    playerSel = playerInput.toLowerCase()
+    //console.log(playerSel)
+    if (playerSel=='scissor' || playerSel=='rock' || playerSel=='scissor') {break;}
+    else{alert('Choose either rock, paper or scissor.')}
+}
+
+*/
+
+
+function game() {
+roundCount++
+const displayMsg = document.querySelector('#displayMsg')
+console.log(displayMsg)
+let computerSel = computerPlay()
+//console.log('Player\'s hand: ' + playerSel)
+//console.log('Computer\'s hand: ' + computerSel)
+displayMsg.innerHTML = 'Player\'s hand: ' + playerSel + ' <br> Computer\'s hand: ' + computerSel + '<br>'
+
+let result = playRpc(computerSel,playerSel)
+displayMsg.innerHTML += resultMessage(result) + '<br>';
+//console.log(resultMessage(result));
+//console.log(result)
+playerScore = playerScore + playerCalc(result);
+computerScore = computerScore + compCalc(result);
+//console.log(computerScore)
+displayMsg.innerHTML += 'Result after turn ' + roundCount + ': <br> Computer: ' + computerScore + '<br> Player: ' + playerScore + '<br>'
+//console.log('Result after turn ' + roundCount + ': \n Computer: ' + computerScore + '\n Player: ' + playerScore)
+
+if(playerScore === 5 || computerScore === 5) {
+    if(playerScore > computerScore) {
+    displayMsg.innerHTML += 'Congrats, you are the winner!';
+    //console.log('<br> Congrats, you are the winner!');
+}
+    else {
+        displayMsg.innerHTML += 'You lose. It\'s hard to beat such a fantastic AI, huh?!';
+        //console.log('You lose. It\'s hard to beat such a fantastic AI, huh?!')
+    }
+        
+roundCount = 0
+playerScore = 0
+computerScore = 0
+}
+}
+
+    </script>
+</body>
