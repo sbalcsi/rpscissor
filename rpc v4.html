@@ -5,12 +5,36 @@
 </head>
 <body>
 <div id="main-container">
-    <h1>Rock? Paper? Scissor?</h1>
-
-    <h2>Choose your hand!</h1>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissor">Scissor</button>
+    <!--<div id="header">
+        <img src="rpc_header_img_2.jpg" alt="Rock? Paper? Scissor?">
+    </div> -->
+    <div id="score-display">
+        <div id="player">
+            <img id="playerhand" src="rock.png" alt="rock">
+            <p>Player</p>
+        </div>
+        <div id="scores">
+            <p class="score-num" id="playerscdisp">0</p>
+            <p id="score-sc">:</p>
+            <p class="score-num" id="compscdisp">0</p>
+        </div>
+        <div id="computer">
+            <img id="computerhand" src="paper.png" alt="paper">
+            <p>Computer</p>
+        </div>
+    </div>
+    <h2>Choose your hand!</h2>
+    <div id="buttons">
+        <button id="rock">
+        <img src="rock.png" alt="rock">
+    </button>
+    <button id="paper">
+        <img src="paper.png" alt="paper">
+    </button>
+    <button id="scissor">
+        <img src="scissor.png" alt="scissor">
+    </button>
+    </div>
     <p id="displayMsg"></p>
 </div>
 
@@ -119,6 +143,15 @@ scissor.addEventListener('click', ()=> {
     game();
 })
 
+const playerScDisp = document.querySelector('#playerscdisp')
+
+const compScDisp = document.querySelector('#compscdisp')
+
+const playerHand = document.querySelector('#playerhand')
+//const playerImg = playerHand.getAttribute('src')
+
+const computerHand = document.querySelector('#computerhand')
+
 //main program
 
 
@@ -146,31 +179,44 @@ while (true) {
 
 
 function game() {
+playerHand.style.opacity = 1
+computerHand.style.opacity = 1
 roundCount++
 const displayMsg = document.querySelector('#displayMsg')
+displayMsg.innerHTML = ''
 console.log(displayMsg)
 let computerSel = computerPlay()
 //console.log('Player\'s hand: ' + playerSel)
 //console.log('Computer\'s hand: ' + computerSel)
-displayMsg.innerHTML = 'Player\'s hand: ' + playerSel + ' <br> Computer\'s hand: ' + computerSel + '<br>'
+//displayMsg.innerHTML = 'Player\'s hand: ' + playerSel + ' <br> Computer\'s hand: ' + computerSel + '<br>'
+playerHand.setAttribute('src',playerSel + '.png')
+computerHand.setAttribute('src',computerSel + '.png')
 
 let result = playRpc(computerSel,playerSel)
-displayMsg.innerHTML += resultMessage(result) + '<br>';
+if(playerCalc(result)===0) {
+    playerHand.style.opacity = 0.5}
+if(compCalc(result)===0) {
+    computerHand.style.opacity = 0.5}
+   
+//displayMsg.innerHTML += resultMessage(result) + '<br>';
 //console.log(resultMessage(result));
 //console.log(result)
 playerScore = playerScore + playerCalc(result);
 computerScore = computerScore + compCalc(result);
 //console.log(computerScore)
-displayMsg.innerHTML += 'Result after turn ' + roundCount + ': <br> Computer: ' + computerScore + '<br> Player: ' + playerScore + '<br>'
+
+playerScDisp.textContent = playerScore
+compScDisp.textContent = computerScore
+//displayMsg.innerHTML += 'Result after turn ' + roundCount + ': <br> Computer: ' + computerScore + '<br> Player: ' + playerScore + '<br>'
 //console.log('Result after turn ' + roundCount + ': \n Computer: ' + computerScore + '\n Player: ' + playerScore)
 
 if(playerScore === 5 || computerScore === 5) {
     if(playerScore > computerScore) {
-    displayMsg.innerHTML += 'Congrats, you are the winner!';
+    displayMsg.innerHTML = 'Congrats, you are the winner! <br> To play again, choose a hand.';
     //console.log('<br> Congrats, you are the winner!');
 }
     else {
-        displayMsg.innerHTML += 'You lose. It\'s hard to beat such a fantastic AI, huh?!';
+        displayMsg.innerHTML = 'You lose. It\'s hard to beat such a fantastic AI, huh?! <br> To play again, choose a hand.';
         //console.log('You lose. It\'s hard to beat such a fantastic AI, huh?!')
     }
         
